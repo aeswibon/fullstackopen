@@ -1,0 +1,35 @@
+pname: Automate PRs to Project
+on:
+  pull_request:
+    types:
+      - opened
+      - closed
+      - reopened
+      - assigned
+jobs:
+  pr_opened_or_reopened:
+    name: pr_opened_or_reopened
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened')
+    steps:
+      - name: 'Move PR to "In Progress"'
+        uses: leonsteinhaeuser/project-beta-automations@v1.2.1
+        with:
+          gh_token: ${{ secrets.PROJECT_TOKEN }}
+          user: cp-Coder
+          project_id: ${{ secrets.PROJECT_ID }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          status_value: "In Progress"
+  pr_closed:
+    name: pr_closed
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    steps:
+      - name: 'Move PR to "Done"'
+        uses: leonsteinhaeuser/project-beta-automations@v1.2.1
+        with:
+          gh_token: ${{ secrets.PROJECT_TOKEN }}
+          user: cp-Coder
+          project_id: ${{ secrets.PROJECT_ID }}
+          resource_node_id: ${{ github.event.issue.node_id }}
+          status_value: "Done"
