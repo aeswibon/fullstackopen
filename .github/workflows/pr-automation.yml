@@ -18,7 +18,7 @@ jobs:
           gh_token: ${{ secrets.PROJECT_TOKEN }}
           user: cp-Coder
           project_id: ${{ secrets.PROJECT_ID }}
-          resource_node_id: ${{ github.event.issue.node_id }}
+          resource_node_id: ${{ github.event.pull_request.node_id }}
           status_value: "In Progress"
   pr_closed:
     name: pr_closed
@@ -31,5 +31,5 @@ jobs:
           gh_token: ${{ secrets.PROJECT_TOKEN }}
           user: cp-Coder
           project_id: ${{ secrets.PROJECT_ID }}
-          resource_node_id: ${{ github.event.issue.node_id }}
+          resource_node_id: ${{ github.event.pull_request.node_id }}
           status_value: "Done"
