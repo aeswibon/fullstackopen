@@ -1,4 +1,4 @@
-pname: Automate PRs to Project
+name: Automate PRs to Project
 on:
   pull_request:
     types:
